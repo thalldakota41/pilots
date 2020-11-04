@@ -1,0 +1,55 @@
+    {% extends 'main.html' %}
+    {% load static %}
+    {% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+  
+    <div class="app-table">
+        <div class="row">
+            {% for post in page %}
+            <div class="col-lg-4">
+                {% if post.poster %}
+                    <img class="thumbnail" src="{{ post.poster.url }}">
+                {% endif %}
+                <div class="box-element product">
+                    <p id="title">{{ post.title }}</p>
+                    <p>Page Count: {{ post.count }}</p>
+                    <p>Creator: {{ post.writer }}</p>
+                    {% if post.script %}
+                    <a href="{{ post.script.url }}" target="_blank">Read Me</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% if page.paginator.count > 15 %}
+                <div class="pagination">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item {% if not prev_page_url %}disabled {% endif %} ">
+                                <a class="page-link" href="{{ prev_page_url }}" tabindex="-1">Previous</a>
+                            </li>
+                            {% for n in page.paginator.page_range %}
+                                {% if page.number == n %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="?page={{ n }}">{{ n }} <span class="sr-only">(current)</span></a>
+                                    </li>
+                                {% elif n > page.number|add:-3  and n < page.number|add:3 %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        
+                        <li class="page-item {% if not next_page_url %}disabled {% endif %} ">
+                            <a class="page-link" href="{{ next_page_url }}">Next</a>
+                        </li>
+                        </ul>
+                    </nav>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script src="{% static 'js/pagination.js' %}"></script>
+
+    
+    {% endblock content %}
+    
