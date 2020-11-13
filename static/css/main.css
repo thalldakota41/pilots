@@ -32,17 +32,6 @@ body{
 	margin-left: 15px;
 }
 
-/* #cart-total{
-	display: block;
-	text-align: center;	
-	color:#fff;
-	background-color: red;
-	width: 20px;
-	height: 25px;
-	border-radius: 50%;
-	font-size: 14px;
-} */
-
 .col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12{
 	margin-top: 10px;
 }
@@ -90,26 +79,75 @@ body{
 	opacity: .6;
 }
 
-.search-results{
+form{
 	margin: auto;
 }
 
 #icon {
-	font-size: 35px;
+	font-size:40px;
 	padding-right: 10px;
 	color: #d31010; 
 	font-weight:900;
 	cursor: pointer;
+	text-shadow: 3px 3px 8px #000000;
+	display: flex;
+	margin-left: 15px;
+	transition: .5s ease;
+
 }
 
 #icon:hover {
-	text-shadow: -3px -3px 8px #000000;
+	opacity: 0.7;
 }
-
 
 img {
-	width: 20px;
-	height: 20px;
+	width: 25px;
+	height: 25px;
 }
 
 
+#about:hover {
+	opacity: 0.7;
+	transition:  0.5s ease;
+}
+
+#comment:hover {
+	opacity: 0.7;
+	transition:  0.5s ease;
+}
+
+input.form-control { 
+	width: 350px!important; 
+	margin-right: 20px;
+}
+
+.hyper-link {
+	float: right;
+	margin-right: 75px;
+}
+/* Tooltip container */
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+   
+	/* Position the tooltip text - see examples below! */
+	position: absolute;
+	z-index: 1;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+	visibility: visible;
+  }

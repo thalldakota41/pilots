@@ -12,7 +12,7 @@
     
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     
@@ -21,31 +21,31 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+
+          <form class="form-inline my-2 my-lg-0" action="/" method="GET">
         
+            <input class="form-control mr-sm-2", type="text", name="search" placeholder="Search by title or creator">
+            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+          </form>
+        <div class="hyper-link">
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="{% url 'about' %}"><img src="{% static 'icons/rocket.png' %}"><span class="sr-only">Mission Page</span></a>
+              <li data-tooltip="Our Mission" class="nav-item active">
+                <a class="nav-link" id="about" href="{% url 'about' %}"><strong>Mission</strong></a>
               </li>
               
             </ul>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'comment' %}"><img src="{% static 'icons/envelope.jpg' %}"><span class="sr-only">Comment Page</span></a>
+                  <a class="nav-link" id="comment" href="{% url 'comment' %}"><strong>Comment</strong></a>
+                   
                 </li>
-                
               </ul>
-  
-              <form class="form-inline my-2 my-lg-0" action="/search" method="GET">
-        
-                <input class="form-control mr-sm-2", type="text", name="search" placeholder="Search">
-                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-              </form>
             
-              <ul id="search-results">
-                
-              </ul>
+        </div>
+  
             
           </div>
     

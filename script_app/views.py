@@ -10,12 +10,13 @@ def home(request):
     
     post =  Pilot.objects.all().order_by('id')
 
-    #Search Filter
-    # search = request.GET.get('search')
+    # Search Filter
+    search = request.GET.get('search')
 
-    # if search != '' and search is not None:
-    #     post = post.filter(Q(title__icontains=search) | Q(writer__icontains=search)).distinct()
-    #     return redirect('/')
+    if search != '' and search is not None:
+        post = post.filter(Q(title__icontains=search) | Q(writer__icontains=search)).distinct()
+    
+        
 
     # Pagination
     page_number = request.GET.get('page', 1)
@@ -40,18 +41,6 @@ def home(request):
  
 
     return render(request, 'home.html', context)
-
-# SearchField
-def search(request):
-    pilot =  Pilot.objects.all()
-
-    search = request.GET.get('search')
-
-    if search != '' and search is not None:
-        pilot = pilot.filter(Q(title__icontains=search) | Q(writer__icontains=search)).distinct()
-        return render(request, 'search.html')
-    return render(request, 'search.html', {'post':post})
-
 
 def about(request):
     return render(request, 'about.html')
