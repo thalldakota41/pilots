@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 
 
-def home(request):
+def index(request):
     
     post =  Pilot.objects.all().order_by('id')
 
@@ -40,7 +40,7 @@ def home(request):
         }
  
 
-    return render(request, 'home.html', context)
+    return render(request, 'index.html', context)
 
 def about(request):
     return render(request, 'about.html')
