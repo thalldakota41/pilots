@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 
 
+
 def index(request):
     
     post =  Pilot.objects.all().order_by('id')

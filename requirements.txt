@@ -42,6 +42,7 @@ PyHamcrest==2.0.2
 pyinstaller==4.0
 pyinstaller-hooks-contrib==2020.10
 pyOpenSSL==19.1.0
+python-decouple==3.3
 pytz==2020.1
 query-string==2019.4.13
 requests==2.23.0
@@ -51,6 +52,7 @@ sqlparse==0.3.1
 Twisted==20.3.0
 txaio==20.4.1
 urllib3==1.25.9
+uWSGI==2.0.19.1
 virtualenv==20.1.0
 Werkzeug==1.0.1
 Whoosh==2.7.4
