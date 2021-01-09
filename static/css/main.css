@@ -45,9 +45,10 @@ body{
 }
 
 .form-field{
-	width:250px;
+	width:300px;
 	display: inline-block;
 	padding: 5px;
+	
 }
 
 .cart-row{
@@ -150,4 +151,8 @@ input.form-control {
   /* Show the tooltip text when you mouse over the tooltip container */
   .tooltip:hover .tooltiptext {
 	visibility: visible;
+  }
+
+  #search {
+	overflow: scroll;
   }

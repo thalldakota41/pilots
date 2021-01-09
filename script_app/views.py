@@ -6,6 +6,10 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 
 
+def main(request):
+    pk = Pilot.objects.all()
+
+    return render(request, 'main.html', {'pk':pk})
 
 def index(request):
     
@@ -17,7 +21,14 @@ def index(request):
     if search != '' and search is not None:
         post = post.filter(Q(title__icontains=search) | Q(writer__icontains=search)).distinct()
     
-        
+    # Ajax/js search
+    if 'term' in request.GET:
+        term = request.GET.get('term')
+        qs = Pilot.objects.filter(Q(title__icontains=term) | Q(writer__icontains=term)).distinct()[:10] #limits ten objects displayed with ajax
+        results = list()
+        for title in qs:
+            results.append(title.title)  
+        return JsonResponse(results, safe=False)
 
     # Pagination
     page_number = request.GET.get('page', 1)
@@ -37,7 +48,8 @@ def index(request):
     context= {
         'page': page,
         'next_page_url': next_url, 
-        'prev_page_url': prev_url
+        'prev_page_url': prev_url,
+        'search': search
         }
  
 
@@ -56,7 +68,9 @@ def comment_submit(request):
         email=request.POST['email']
         message=request.POST['message']
             
-        Comment.objects.create(name=name, email=email, message=message)
-        return redirect('/comment')
+        comment = Comment.objects.create(name=name, email=email, message=message)
+        if comment.is_valid():
+            comment.save()
+            return redirect('/')
     return redirect('/')
 

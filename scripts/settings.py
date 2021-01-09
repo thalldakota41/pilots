@@ -16,9 +16,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
     SECRET_KEY = f.read().strip()
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['episodeone.site', 'www.episodeone.site']
+ALLOWED_HOSTS = []
 
 
 
@@ -74,10 +74,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'USER': 'root',
-        'PASSWORD': 'root',
         }
 }
 
@@ -123,17 +119,17 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # List if directories that house static files
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
-# HTTP settings
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+# # HTTP settings
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
 
-# HTST settings 
-SECURE_HSTS_SECONDS = 31536000 # 1 year
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# # HTST settings 
+# SECURE_HSTS_SECONDS = 31536000 # 1 year
+# SECURE_HSTS_PRELOAD = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
