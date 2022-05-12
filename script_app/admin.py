@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Pilot, Comment
+from .models import *
 
-admin.site.register(Pilot)
+admin.site.register(Creator)
+admin.site.register(Tag)
+admin.site.register(Show)
 admin.site.register(Comment)

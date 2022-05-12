@@ -121,7 +121,7 @@ MEDIA_URL = '/media/'
 # List if directories that house static files
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/screenplays')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 # # HTTP settings

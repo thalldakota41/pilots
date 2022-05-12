@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <div class="id">
+
+   </div>
+
+   <div>
+       <h1>{{show.title}}</h1>
+        {% for creator in show.creators.all %}
+            <p>Creator: <a href="{% url 'creator' creator.id %}">{{ creator.name }}</a></p>
+        {% endfor %}
+       <p>description</p>
+
+       <p>years it  was on air</p>
+       {% if post.script %}
+            <a href="{{ post.script.url }}" target="_blank">Read Me</a>
+       {% endif %}
+       <p>where the show is watchable</p>
+   </div>
+
+   <div class="genre_rec_bar">
+       <h2>This will be a genre recommendation horizontal scroll bar</h2>
+   </div>
+</body>
+</html>
