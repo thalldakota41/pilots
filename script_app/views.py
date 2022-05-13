@@ -24,17 +24,17 @@ def index(request):
     posts = Show.objects.all()
     
     
-    
-    data = requests.get(f"https://api.themoviedb.org/3/search/tv?api_key={api_key}&language=en-US&page=1&include_adult=false&query={posts}")
+    for titles in posts:
+        data = requests.get(f"https://api.themoviedb.org/3/search/tv?api_key={api_key}&language=en-US&page=1&include_adult=false&query={titles}")
 
             
-    results = data.json()
-    poster = results['results'][0]['poster_path']
-    name = results['results'][0]['name']
-    overview = results['results'][0]['overview']
+        results = data.json()
+        poster = results['results'][0]['poster_path']
+        name = results['results'][0]['name']
+        overview = results['results'][0]['overview']
         
             
-    print(poster, name, overview)
+        print(poster, name, overview)
         
     
 
