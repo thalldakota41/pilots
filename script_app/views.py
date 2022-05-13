@@ -19,18 +19,22 @@ def main(request):
     return render(request, 'main.html', {'pk':pk})
 
 def index(request):
-    api_key = ""
-    post =  Show.objects.all().order_by('created_at')
+    api_key = "c3d5cd287179507f4783766b3ff53e0f"
+    post =  Show.objects.all().order_by('id')
+    posts = Show.objects.all()
     
     
-    for titles in post:
-     data = requests.get(f"https://api.themoviedb.org/3/search/tv?api_key={api_key}&language=en-US&page=1&include_adult=false&query={titles}")
+    
+    data = requests.get(f"https://api.themoviedb.org/3/search/tv?api_key={api_key}&language=en-US&page=1&include_adult=false&query={posts}")
 
             
-     results = data.json()
-     name = results['results'][0]['poster_path']
+    results = data.json()
+    poster = results['results'][0]['poster_path']
+    name = results['results'][0]['name']
+    overview = results['results'][0]['overview']
+        
             
-     print(name)
+    print(poster, name, overview)
         
     
 
@@ -70,8 +74,10 @@ def index(request):
         'next_page_url': next_url, 
         'prev_page_url': prev_url,
         'search': search,
-        # 'name': name,
+        'name': name,
         'post': post,
+        'poster':poster,
+        'overview':overview,
         }
  
 
