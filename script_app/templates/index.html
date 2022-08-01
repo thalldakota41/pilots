@@ -7,12 +7,14 @@
         <div class="row">
             {% for post in post %}
             <div class="col-lg-4">
-                {% if post.name %}
-                    <img class="thumbnail" src="https://image.tmdb.org/t/p/w500/{{post.title.name}}">
-                {% endif %}
+                <!-- {% if post.name %} -->
+                    <img class="thumbnail" src="https://image.tmdb.org/t/p/w500/{{poster}}">
+                <!-- {% endif %} -->
                 <div class="box-element product">
                     
                     <a id="title" href="{% url 'show' post.id %}">{{ post.title }}</a>
+ 
+                    
                     
                     <p>Page Count: {{ post.count }}</p>
                         
@@ -20,6 +22,7 @@
                     {% for creator in post.creators.all %}
                         <p>Creator: <a href="{% url 'creator' creator.id %}">{{ creator.name }}</a></p>
                     {% endfor %}
+                    
             
                     {% if post.script %}
                     <a href="{{ post.script.url }}" target="_blank">Read Me</a>
@@ -28,20 +31,8 @@
                 </div>
             </div>
             {% endfor %}
-
-            
-           
-            
-                <ul>
-                    <li><img src="https://image.tmdb.org/t/p/w500/{{poster}}"></li>
-                    <li>{{name}}</li>
-                    <li>{{overview}}</li>
-                </ul>
-                
-                
+          {{show_data}}
           
-            
-            
             
             {% if page.paginator.count > 15 %}
                 <div class="pagination">

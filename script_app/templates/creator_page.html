@@ -14,7 +14,11 @@
             <ul><a href="{% url 'show' shows.id %}">{{ shows.title }}</a></ul>
         </li>
         {% endfor %}
-
+        {{creator_info.biography}}
+        <img src="https://image.tmdb.org/t/p/w500/{{creator_info.profile_path}}">
+        
+        
+       
     </div>
     <div class="creator_rec_bar">
         <p>This will be a creator recommendation horizontal scroll bar</p>

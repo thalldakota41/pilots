@@ -12,13 +12,14 @@
    </div>
 
    <div>
+    <img src="https://image.tmdb.org/t/p/w500/{{show_info.poster_path}}">
        <h1>{{show.title}}</h1>
         {% for creator in show.creators.all %}
             <p>Creator: <a href="{% url 'creator' creator.id %}">{{ creator.name }}</a></p>
         {% endfor %}
-       <p>description</p>
+       <p>{{show_info.overview}}</p>
 
-       <p>years it  was on air</p>
+       <p>{{show_info.first_air_date}}</p>
        {% if post.script %}
             <a href="{{ post.script.url }}" target="_blank">Read Me</a>
        {% endif %}

@@ -1,5 +1,2 @@
-__pycache__/
-.vscode/
-venv/
-db.sqlite3
-secret_key.txt
+secret_key = "c3d5cd287179507f4783766b3ff53e0f"
+

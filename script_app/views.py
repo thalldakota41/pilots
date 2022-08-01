@@ -1,4 +1,8 @@
 from email.mime import base
+import pprint
+from pkgutil import get_data
+from pydoc import pager
+from unittest import result
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect
 from .models import (
@@ -11,34 +15,43 @@ import json
 from django.core.paginator import Paginator
 from django.db.models import Q
 import requests
+from pprint import pp, pprint
 
 
+api_key = secert_key
 def main(request):
     pk = Show.objects.all()
-
     return render(request, 'main.html', {'pk':pk})
 
+
+
 def index(request):
-    api_key = "c3d5cd287179507f4783766b3ff53e0f"
-    post =  Show.objects.all().order_by('id')
-    posts = Show.objects.all()
+    # grabs all objects in database from Show model class
+    post =  Show.objects.all().order_by('title')
     
-    
-    for titles in posts:
-        data = requests.get(f"https://api.themoviedb.org/3/search/tv?api_key={api_key}&language=en-US&page=1&include_adult=false&query={titles}")
+   
+    #loops and matches all database objects with TVDB json data
 
-            
-        results = data.json()
-        poster = results['results'][0]['poster_path']
-        name = results['results'][0]['name']
-        overview = results['results'][0]['overview']
+    
+
+    for lists in post:            
+        data = requests.get(F"https://api.themoviedb.org/3/search/tv?api_key={api_key}&language=en-US&page=1&include_adult=false&query={lists}")
         
-            
-        print(poster, name, overview)
+        r = data.json()
         
-    
+        # grabs title value from api  
+        api_title = r['results'][0]['name']
+        # grabe poster path value from api
+        api_poster = r['results'][0]['poster_path']
+        # grabs id value from api 
+        api_id = r['results'][0]['id']
 
-
+        show_data = {}
+        #appends all search results to empty show_data dict.
+        show_data['shows'] = {'name':api_title, 'poster_path':api_poster, 'id':api_id}
+        pprint(show_data)
+        
+        
     # Search Filter
     search = request.GET.get('search')
 
@@ -74,14 +87,12 @@ def index(request):
         'next_page_url': next_url, 
         'prev_page_url': prev_url,
         'search': search,
-        'name': name,
         'post': post,
-        'poster':poster,
-        'overview':overview,
-        }
- 
-
+        'show_data':show_data,
+                }
     return render(request, 'index.html', context)
+
+
 
 
 
@@ -90,8 +101,24 @@ def index(request):
 def creator_page(request, id):
     
     creator_obj = Creator.objects.get(id=id)
-    context = { "creator":creator_obj}
+    
+    # api call to the search url to obtain the "creator's" id for an integer input for the following api url
+    api_url = requests.get(f'https://api.themoviedb.org/3/search/person?api_key={api_key}&language=en-US&page=1&include_adult=false&query={creator_obj}')
+    
+    creator_name = api_url.json()
+    # grabs the id of 'creator' from the tmdb api
+    creator_tmdb_id = creator_name['results'][0]['id']
+    #grabs json object for the specific creator page. 
+    api_person_url = requests.get(F"https://api.themoviedb.org/3/person/{creator_tmdb_id}?api_key={api_key}&language=en-US")
 
+    creator_info = api_person_url.json()
+    #pprint(creator_info)    
+
+    context = { 
+        "creator":creator_obj,
+        'creator_info':creator_info,
+       
+    }
     return render(request, "creator_page.html", context)
 
 
@@ -99,12 +126,22 @@ def creator_page(request, id):
 
 def show_page(request, id):
     show_obj = Show.objects.get(id=id)
-    context = {'show':show_obj}
+    # api call to the search url to obtain the "show's" id for an integer input for the following api url
+    show_url = requests.get(F"https://api.themoviedb.org/3/search/tv?api_key={api_key}&language=en-US&page=1&include_adult=false&query={show_obj}")
+
+    show_info = show_url.json()
+    
+    # grabs the id of 'show' from the tmdb api
+    show_tmdb_id = show_info['results'][0]['id']
+    
+    #grabs json object for the specific 'show' page. 
+    api_show_url = requests.get(F"https://api.themoviedb.org/3/tv/{show_tmdb_id}?api_key={api_key}&language=en-US")
+    
+    show_info = api_show_url.json()
+    #pprint(show_info)
+    
+    context = {'show':show_obj, 'show_info':show_info}
     return render(request, 'show_page.html', context)
-
-
-
-
 
 
 
@@ -128,4 +165,3 @@ def comment_submit(request):
             comment.save()
             return redirect('/')
     return redirect('/')
-
