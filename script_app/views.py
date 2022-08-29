@@ -5,12 +5,13 @@ from pydoc import pager
 from unittest import result
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect
-from .models import (
-    Creator,
-    Tag,
-    Show,
-    Comment
-)
+from .models import *
+# (
+#     Creator,
+#     Tag,
+#     Show,
+#     Comment
+# )
 import json
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -18,7 +19,8 @@ import requests
 from pprint import pp, pprint
 
 
-api_key = secert_key
+api_key = ""
+
 def main(request):
     pk = Show.objects.all()
     return render(request, 'main.html', {'pk':pk})
@@ -33,7 +35,7 @@ def index(request):
     #loops and matches all database objects with TVDB json data
 
     
-
+    
     for lists in post:            
         data = requests.get(F"https://api.themoviedb.org/3/search/tv?api_key={api_key}&language=en-US&page=1&include_adult=false&query={lists}")
         
@@ -48,10 +50,9 @@ def index(request):
 
         show_data = {}
         #appends all search results to empty show_data dict.
-        show_data['shows'] = {'name':api_title, 'poster_path':api_poster, 'id':api_id}
+        show_data[api_title] = {'poster_path':api_poster, 'id':api_id}
         pprint(show_data)
-        
-        
+
     # Search Filter
     search = request.GET.get('search')
 
@@ -88,15 +89,9 @@ def index(request):
         'prev_page_url': prev_url,
         'search': search,
         'post': post,
-        'show_data':show_data,
+        
                 }
     return render(request, 'index.html', context)
-
-
-
-
-
-
 
 def creator_page(request, id):
     
@@ -117,12 +112,8 @@ def creator_page(request, id):
     context = { 
         "creator":creator_obj,
         'creator_info':creator_info,
-       
     }
     return render(request, "creator_page.html", context)
-
-
-
 
 def show_page(request, id):
     show_obj = Show.objects.get(id=id)
