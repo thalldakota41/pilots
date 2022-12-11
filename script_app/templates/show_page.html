@@ -1,33 +1,165 @@
 <!DOCTYPE html>
+<!-- {% extends 'main.html' %} -->
+{% load static %}
+<!-- {% block content %} -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{show.title}}</title>
+    
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/show_page.css' %}"> -->
 </head>
 <body>
-   <div class="id">
-
-   </div>
-
-   <div>
-    <img src="https://image.tmdb.org/t/p/w500/{{show_info.poster_path}}">
-       <h1>{{show.title}}</h1>
-        {% for creator in show.creators.all %}
-            <p>Creator: <a href="{% url 'creator' creator.id %}">{{ creator.name }}</a></p>
-        {% endfor %}
-       <p>{{show_info.overview}}</p>
-
-       <p>{{show_info.first_air_date}}</p>
-       {% if post.script %}
-            <a href="{{ post.script.url }}" target="_blank">Read Me</a>
-       {% endif %}
-       <p>where the show is watchable</p>
-   </div>
-
-   <div class="genre_rec_bar">
-       <h2>This will be a genre recommendation horizontal scroll bar</h2>
-   </div>
+    <!-- API backdrop img as background -->
+    <div id="background-image" class="background-image">
+        <!-- API poster of the show -->
+        <div class="poster">
+            <img src="https://image.tmdb.org/t/p/w500/{{show_info.poster_path}}">
+            <!-- link to the screenplay available for pdf download -->
+            {% if show.script %}
+            <div class="show-screenplay">
+                <button><a href="{{ show.script.url }}" target="_blank">Read Me</a></button>  
+            </div>
+            {% endif %}
+            <div class="rec-nav-bar">
+                <h1>This will be a genre recommendation horizontal scroll bar</h1>
+            </div>
+        </div>
+       
+        
+        <div class="container">
+            <!-- Title of the show -->
+            <div class="show-title">
+                <h1>{{show.title}}</h1>
+            </div>
+            
+            <!-- Show creator and link to thier bio and all thier screenplays available in our database  -->
+            <div class="show-creator">
+                {% for creator in show.creators.all %}
+                    <p>Creator: <a href="{% url 'creator' creator.id %}">{{ creator.name }}</a></p>
+                {% endfor %}
+            </div>
+            <!-- API synapsis of the show  -->
+            <div class="show-overview">
+                <p>{{show_info.overview}}</p>
+            {% for genres in show.tag.all %}
+                <h1>{{genres}}</h1>
+            {% endfor %}
+            </div>
+        </div>
+        
+    </div>  
 </body>
+<script>
+    // controls the background image
+    const imageDom = document.getElementById('background-image')
+    imageDom.style.backgroundImage = `url(${"https://image.tmdb.org/t/p/w500/{{show_info.backdrop_path}}"})`
+</script>
+<style>
+
+    .background-image {
+        background-size: cover;
+        /* width: 100%; */
+        background-position: center;
+        display: flex;
+        height: 450px;
+        position: absolute;
+        isolation: isolate;
+    }
+
+    .background-image > div {
+        background-image: linear-gradient(to top,
+        rgba(0,0,0,1) 20%,
+        rgba(0,0,0,.7) 40%,
+        rgba(0,0,0,.4) 70%,
+        rgba(0,0,0,0) 100%)
+        /* to bottom, 
+        rgba(0,0,0,1)  */
+        ;
+        /* rgba(255,255,255,1) 20%,
+        rgba(255,255,255,.7) 40%,
+        rgba(255,255,255,.4) 70%,
+        rgba(255,255,255,0) 100%); */
+        background-size: auto;
+        
+    }
+
+    .background-image::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: 0;   
+    }
+    /* from css style txt */
+    body {
+    margin: 0;
+    background-color:black;
+    }
+
+    .container {
+        display:inline-block;
+        padding-top: 325px;
+        
+    }
+
+    .poster img {
+        width: 100%;
+        border: 4px solid white;
+        width: 290px;
+        height: 400px;
+        margin-top: 65px;
+    }
+    .poster {
+        border-radius: 3px;
+        box-shadow: 1px;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 20px;
+        
+    }
+
+    .show-title {
+        color: white;
+        
+    }
+    .show-creator {
+        color: white;
+        
+    }
+    .show-overview {
+        color: white;
+    }
+    button {
+        width: 295px;
+        height: 40px;
+        text-decoration: none;
+
+    }
+
+    button:link, button:visited {
+        background-color: #f44336;
+        color: white;
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    button:hover, button:active {
+        background-color: red;
+        text-decoration: none;
+
+    }
+    .rec-nav-bar {
+        background-color: white;
+        height: 200px;
+        
+        
+    }
+    
+</style>
+
+<!-- {% endblock content %} -->
 </html>

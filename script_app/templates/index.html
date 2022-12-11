@@ -5,39 +5,34 @@
 
     <div class="app-table">
         <div class="row">
-            {% for post in post %}
+            {% for show in page %}
             <div class="col-lg-4">
-                <!-- {% if post.name %} -->
-                    <img class="thumbnail" src="https://image.tmdb.org/t/p/w500/{{poster}}">
-                <!-- {% endif %} -->
+                
+                <img class="thumbnail" src="https://image.tmdb.org/t/p/w500/{{show.0.poster_path}}">
+            
                 <div class="box-element product">
                     
-                    <a id="title" href="{% url 'show' post.id %}">{{ post.title }}</a>
+                    <a id="title" href="{% url 'show' show.1.id %}">{{ show.1.title }}</a>
  
                     
                     
-                    <p>Page Count: {{ post.count }}</p>
+                    <p>Page Count: {{ show.1.count }}</p>
                         
                     
-                    {% for creator in post.creators.all %}
+                    {% for creator in show.1.creators.all %}
                         <p>Creator: <a href="{% url 'creator' creator.id %}">{{ creator.name }}</a></p>
                     {% endfor %}
                     
             
-                    {% if post.script %}
-                    <a href="{{ post.script.url }}" target="_blank">Read Me</a>
+                    {% if show.1.script %}
+                    <a href="{{ show.1.script.url }}" target="_blank">Read Me</a>
                     {% endif %}
-            
+
                 </div>
             </div>
             {% endfor %}
-            {{new_show_data}}
             
-            
-
-          
-          
-            
+            <!-- for page count and transition to the next 15 items -->
             {% if page.paginator.count > 15 %}
                 <div class="pagination">
                     <nav aria-label="...">

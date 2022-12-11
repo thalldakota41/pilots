@@ -28,7 +28,7 @@ class Show(models.Model):
     script = models.FileField(blank=True, null=True, upload_to="screenplays")
     #poster = models.ImageField(blank=True, null=True, default='default.jpg', upload_to="posters")
     creators = models.ManyToManyField(Creator, related_name='shows')
-    tag = models.ManyToManyField(Tag)
+    tag = models.ManyToManyField(Tag, related_name='tags')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

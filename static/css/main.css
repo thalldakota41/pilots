@@ -1,5 +1,10 @@
 body{
-	background-color: hsl(0, 0%, 98%);
+	/* background-color: hsl(0, 0%, 98%); */
+	background-color: #000000;
+}
+
+#nar-bar {
+	background: rgba(0, 0, 0, .2);
 }
 
 .box-element{
