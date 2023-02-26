@@ -12,7 +12,6 @@ class Creator(models.Model):
 
 class Tag(models.Model):
     genre = models.CharField(max_length=100)
-    #show = models.ManyToManyField(Show)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -22,11 +21,8 @@ class Tag(models.Model):
 
 class Show(models.Model):
     title = models.CharField(max_length=200)
-    #description = models.TextField()
     count = models.IntegerField()
-    #year = models.IntegerField()
     script = models.FileField(blank=True, null=True, upload_to="screenplays")
-    #poster = models.ImageField(blank=True, null=True, default='default.jpg', upload_to="posters")
     creators = models.ManyToManyField(Creator, related_name='shows')
     tag = models.ManyToManyField(Tag, related_name='tags')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -50,21 +46,6 @@ class Comment(models.Model):
     def __str__(self):
         return self.message
 
-
-
-# class Pilot(models.Model):
-#     title = models.CharField(max_length=200)
-#     description = models.TextField()
-#     count = models.IntegerField()
-#     writer = models.CharField(max_length=200)
-#     year = models.IntegerField()
-#     script = models.FileField(blank=True, null=True, upload_to="scripts")
-#     poster = models.ImageField(blank=True, null=True, default='default.jpg', upload_to="posters")
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-   
-#     def __str__(self):
-#         return self.title
 
 
 
